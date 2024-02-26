@@ -20,25 +20,4 @@ jobs:
           inso generate config spec.yaml -t kubernetes > teste.yaml
           cat teste.yaml
           mv teste.yaml ./artefatos
-
-      - name: Temporarily disable branch protection
-        uses: benjefferies/branch-protection-bot@master
-        if: always()
-        with:
-          access_token: ${{'${{'}} secrets.API_TOKEN_GITHUB ${{'}}'}}
-          branch: ${{'${{'}} github.event.repository.default_branch ${{'}}'}}
-    
-      - name: Publish Catalogo Info
-        uses: dmnemec/copy_file_to_another_repo_action@main
-        env:
-          API_TOKEN_GITHUB: ${{'${{'}} secrets.API_TOKEN_GITHUB ${{'}}'}}
-        with:
-          destination_branch: ${{'${{'}} github.event.repository.default_branch ${{'}}'}}
-          source_file: './artefatos/${{values.componentId}}.yaml'
-          destination_repo: ${{'${{'}} github.repository ${{'}}'}}
-          destination_folder: '/'
-          commit_message: Update artefact in the same repo
-          user_name: ${{'${{'}} secrets.GH_USERNAME ${{'}}'}}
-          user_email: ${{'${{'}} secrets.GH_EMAIL ${{'}}'}}
-          git_server: github.com
           
