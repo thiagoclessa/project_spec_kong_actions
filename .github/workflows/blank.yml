@@ -17,17 +17,17 @@ jobs:
 
       - name: Run a multi-line script
         run: |
-          inso generate config spec.yaml -t kubernetes > ${{values.componentId}}.yaml
-          cat ${{values.componentId}}.yaml
-          mv ${{values.componentId}}.yaml ./artefatos
+          inso generate config spec.yaml -t kubernetes > teste.yaml
+          cat teste.yaml
+          mv teste.yaml ./artefatos
 
-          - name: Temporarily disable branch protection
-          uses: benjefferies/branch-protection-bot@master
-          if: always()
-          with:
-            access_token: ${{'${{'}} secrets.API_TOKEN_GITHUB ${{'}}'}}
-            branch: ${{'${{'}} github.event.repository.default_branch ${{'}}'}}
-  
+      - name: Temporarily disable branch protection
+        uses: benjefferies/branch-protection-bot@master
+        if: always()
+        with:
+          access_token: ${{'${{'}} secrets.API_TOKEN_GITHUB ${{'}}'}}
+          branch: ${{'${{'}} github.event.repository.default_branch ${{'}}'}}
+    
       - name: Publish Catalogo Info
         uses: dmnemec/copy_file_to_another_repo_action@main
         env:
